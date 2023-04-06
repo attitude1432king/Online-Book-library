@@ -22,12 +22,20 @@ namespace Online__Book_library.Controllers
             return View();
         }
 
-        [HttpPost]
-        public JsonResult Registers(AdminModel data)
+       
+        public JsonResult AdminRegister(AdminModel data)
         {
             return Json(ah.AdminRegister(data),JsonRequestBehavior.AllowGet);
         }
 
+        public ViewResult Login()
+        {
+            return View();
+        }
 
+        public JsonResult CommonLogin(LoginModel data)
+        {
+            return Json(ah.Login(data), JsonRequestBehavior.AllowGet);
+        }
     }
 }

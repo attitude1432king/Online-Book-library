@@ -33,5 +33,30 @@ namespace Online__Book_library.Bal
             }
             
         }
+
+        public bool Login(LoginModel data)
+        {
+            bool auth = false;
+            NpgsqlCommand cm = new NpgsqlCommand("select c_admin_email,c_admin_pass from admin where c_admin_email=@c_admin_email AND c_admin_pass=@c_admin_pass ", con);
+            
+            cm.Parameters.AddWithValue("@c_admin_email", data.c_admin_email);
+            cm.Parameters.AddWithValue("@c_admin_pass", data.c_admin_pass);
+            con.Open();
+            NpgsqlDataReader dr = cm.ExecuteReader();
+            if (dr.Read())
+            {
+                auth = true;
+                con.Close();
+                return auth;
+            }
+            else
+            {
+                auth = false;
+                con.Close();
+                return auth;
+            }
+
+        }
+
     }
 }

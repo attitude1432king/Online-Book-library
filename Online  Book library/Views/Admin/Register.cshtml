@@ -40,12 +40,12 @@
                                 <label for="email"><i class="fa-solid fa-envelope fa-xl"></i></label>
                                 <input type="email" name="email" id="email" placeholder="Your Email" />
                             </div>
-                            
+
                             <div class="form-control">
                                 <label for="gender" class="" style="margin-left:500px;"></label>
                                 <div class="col-md-10" style="margin-bottom:15px;">
                                     <span style="font-size:14px; font-weight:600">Male</span><input type="radio" name="gender" value="Male" id="txtMale" class="radio" style="width: 25px; display: inline; font-family: Poppins;" />
-                                    <span style="font-size:14px; font-weight:600">Female</span><input type="radio" name="gender" value="Female" id="txtFemale" class="radio" style="width: 25px; display: inline; font-family: Poppins;"/>
+                                    <span style="font-size:14px; font-weight:600">Female</span><input type="radio" name="gender" value="Female" id="txtFemale" class="radio" style="width: 25px; display: inline; font-family: Poppins;" />
                                 </div>
                             </div>
 
@@ -72,32 +72,47 @@
             </div>
         </section>
 
-       
+
 
     </div>
 
     <!-- JS -->
 
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script>
-        $("#signup").click(function () {
-            var signupdata = {
-
-            c_admin_name: $("#name").val(),
-            c_admin_email: $("#email").val(),
-            c_admin_gender: $("input:radio[name=gender] :selected").val(),
-            c_admin_pass: $("#pass").val()
-            }
-
-            var setting = {
-                "url": "/Admin/Register/",
-                "method": "post",
-                "timeout": 0,
-                "hearder" : ""
-            }
-        });
-    </script>
 
 
 </body>
-</html> 
+</html>
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#signup").click(function () {
+            var signupdata = {
+
+                c_admin_name: $("#name").val(),
+                c_admin_email: $("#email").val(),
+                c_admin_gender: $("input:radio[name=gender] :checked").val(),
+                c_admin_pass: $("#pass").val()
+            }
+
+            var setting = {
+                "url": "/Admin/Registers/",
+                "method": "post",
+                "timeout": 0,
+                "hearder": {
+                    "Content-Type": "application/json"
+                },
+                "data": JSON.stringify(signupdata)
+            }
+            console.log(signupdata);
+            $.ajax(setting).done(function (response) {
+                console.log(response);
+
+            });
+        });
+    });
+
+
+</script>

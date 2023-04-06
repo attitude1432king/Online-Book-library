@@ -8,18 +8,18 @@ using System.Web.Mvc;
 
 namespace Online__Book_library.Controllers
 {
-    public class AdminController : Controller
+    public class StudentController : Controller
     {
-        // GET: Admin
-        AdminHelper ah = new AdminHelper();
-        public ActionResult Index()
+        StudentHelper sh=new StudentHelper();
+        public ActionResult Register()
         {
             return View();
         }
 
-        public JsonResult Register(AdminModel data)
+        [HttpPost]
+        public JsonResult StudentRegister(StudentModel data)
         {
-            return Json(ah.AdminRegister(data),JsonRequestBehavior.AllowGet);
+            return Json(sh.Register(data),JsonRequestBehavior.AllowGet);
         }
     }
 }

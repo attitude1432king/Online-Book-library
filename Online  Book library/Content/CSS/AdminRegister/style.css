@@ -3,6 +3,21 @@ display-flex, .display-flex, .display-flex-center, .signup-content, .signin-cont
   display: flex;
   display: -webkit-flex; }
 
+/* Css For Dropdown */
+select {
+    appearance: none;
+    outline: 0;
+    width: 100%;
+    height: 30px;
+    color: darkgrey;
+    cursor: pointer;
+    border-bottom: 1px solid darkgrey;
+    border-radius: 3px;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+}
+
 /* @extend list-type-ulli; */
 list-type-ulli, .socials {
   list-style-type: none;

@@ -80,21 +80,24 @@
 
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script>
-        $("#signup").click(function () {
-            var signupdata = {
+        $(document).ready(function () { 
 
-            c_admin_name: $("#name").val(),
-            c_admin_email: $("#email").val(),
-            c_admin_gender: $("input:radio[name=gender] :selected").val(),
-            c_admin_pass: $("#pass").val()
-            }
+            $("#signup").click(function () {
+                var signupdata = {
 
-            var setting = {
-                "url": "/Admin/Register/",
-                "method": "post",
-                "timeout": 0,
-                "hearder" : ""
-            }
+                    c_admin_name: $("#name").val(),
+                    c_admin_email: $("#email").val(),
+                    c_admin_gender: $("input:radio[name=gender] :checked").val(),
+                    c_admin_pass: $("#pass").val()
+                }
+
+                var setting = {
+                    "url": "/Admin/Register/",
+                    "method": "post",
+                    "timeout": 0,
+                    "hearder": ""
+                }
+            });
         });
     </script>
 

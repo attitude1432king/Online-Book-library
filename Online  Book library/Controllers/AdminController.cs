@@ -17,9 +17,9 @@ namespace Online__Book_library.Controllers
             return View();
         }
 
-        public ViewResult Register(AdminModel data)
+        public JsonResult Register(AdminModel data)
         {
-            return View();
+            return Json(ah.AdminRegister(data),);
         }
     }
 }

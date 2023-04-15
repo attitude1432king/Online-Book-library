@@ -17,9 +17,25 @@ namespace Online__Book_library.Controllers
             return View();
         }
 
-        public JsonResult Register(AdminModel data)
+        public ViewResult Register()
+        {
+            return View();
+        }
+
+       
+        public JsonResult AdminRegister(AdminModel data)
         {
             return Json(ah.AdminRegister(data),JsonRequestBehavior.AllowGet);
+        }
+
+        public ViewResult Login()
+        {
+            return View();
+        }
+
+        public JsonResult CommonLogin(LoginModel data)
+        {
+            return Json(ah.Login(data), JsonRequestBehavior.AllowGet);
         }
     }
 }

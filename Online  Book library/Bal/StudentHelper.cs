@@ -32,6 +32,68 @@ namespace Online__Book_library.Bal
                 return false;
             }
         }
-        
+        public List<BookModel> GetStudentBook()
+        {
+            List<BookModel> BookList = new List<BookModel>();
+            try
+            {
+                NpgsqlCommand cm = new NpgsqlCommand("select * from book", con);
+                con.Open();
+                NpgsqlDataReader dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    var book = new BookModel();
+                    book.c_book_id = Convert.ToInt32(dr["c_book_id"]);
+                    book.c_book_name = dr["c_book_name"].ToString();
+                    book.c_book_author = dr["c_book_author"].ToString();
+                    book.c_book_price = Convert.ToDecimal(dr["c_book_price"]);
+                    BookList.Add(book);
+                }
+
+            }
+            catch (Exception)
+            {
+                throw; ;
+            }
+
+            finally
+            {
+                con.Close();
+            }
+            return BookList;
+        }
+
+
+        public List<BookModel> GetCategoryByBook(string category)
+        {
+            List<BookModel> BookList = new List<BookModel>();
+            try
+            {
+                NpgsqlCommand cm = new NpgsqlCommand("select * from book where c_book_category =@c_book_category ", con);
+                cm.Parameters.AddWithValue("c_book_category", category);
+                con.Open();
+                NpgsqlDataReader dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    var book = new BookModel();
+                    book.c_book_id = Convert.ToInt32(dr["c_book_id"]);
+                    book.c_book_name = dr["c_book_name"].ToString();
+                    book.c_book_author = dr["c_book_author"].ToString();
+                    book.c_book_price = Convert.ToDecimal(dr["c_book_price"]);
+                    BookList.Add(book);
+                }
+
+            }
+            catch (Exception)
+            {
+                throw; ;
+            }
+
+            finally
+            {
+                con.Close();
+            }
+            return BookList;
+        }
     }
 }

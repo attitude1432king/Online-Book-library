@@ -12,6 +12,7 @@ namespace Online__Book_library.Controllers
     {
         // GET: Admin
         AdminHelper ah = new AdminHelper();
+        StudentHelper sh=new StudentHelper();
         public ActionResult Index()
         {
             return View();
@@ -33,9 +34,24 @@ namespace Online__Book_library.Controllers
             return View();
         }
 
-        public JsonResult CommonLogin(LoginModel data)
-        {
-            return Json(ah.Login(data), JsonRequestBehavior.AllowGet);
+        public ActionResult CommonLogin(LoginModel data)
+        { 
+            if(ah.Login(data))
+            {
+                //return Json(ah.Login(data), JsonRequestBehavior.AllowGet);
+                return RedirectToAction("Index");
+                
+            }
+            else if(sh.Login(data))
+            {
+                // return Json(sh.Login(data), JsonRequestBehavior.AllowGet);
+                return RedirectToAction("Index","Student");
+            }
+            else
+            {
+                //return Json("", JsonRequestBehavior.AllowGet);
+                return RedirectToAction("Login");
+            }
         }
 
 

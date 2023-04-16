@@ -32,68 +32,30 @@ namespace Online__Book_library.Bal
                 return false;
             }
         }
-        public List<BookModel> GetStudentBook()
+
+
+        public bool Login(LoginModel data)
         {
-            List<BookModel> BookList = new List<BookModel>();
-            try
-            {
-                NpgsqlCommand cm = new NpgsqlCommand("select * from book", con);
-                con.Open();
-                NpgsqlDataReader dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    var book = new BookModel();
-                    book.c_book_id = Convert.ToInt32(dr["c_book_id"]);
-                    book.c_book_name = dr["c_book_name"].ToString();
-                    book.c_book_author = dr["c_book_author"].ToString();
-                    book.c_book_price = Convert.ToDecimal(dr["c_book_price"]);
-                    BookList.Add(book);
-                }
+            bool auth = false;
+            NpgsqlCommand cm = new NpgsqlCommand("select c_student_email,c_student_pass from student where c_student_email=@c_student_email AND c_student_pass=@c_student_pass ", con);
 
-            }
-            catch (Exception)
+            cm.Parameters.AddWithValue("@c_student_email", data.c_admin_email);
+            cm.Parameters.AddWithValue("@c_student_pass", data.c_admin_pass);
+            con.Open();
+            NpgsqlDataReader dr = cm.ExecuteReader();
+            if (dr.Read())
             {
-                throw; ;
-            }
-
-            finally
-            {
+                auth = true;
                 con.Close();
+                return auth;
             }
-            return BookList;
-        }
-
-
-        public List<BookModel> GetCategoryByBook(string category)
-        {
-            List<BookModel> BookList = new List<BookModel>();
-            try
+            else
             {
-                NpgsqlCommand cm = new NpgsqlCommand("select * from book where c_book_category =@c_book_category ", con);
-                cm.Parameters.AddWithValue("c_book_category", category);
-                con.Open();
-                NpgsqlDataReader dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    var book = new BookModel();
-                    book.c_book_id = Convert.ToInt32(dr["c_book_id"]);
-                    book.c_book_name = dr["c_book_name"].ToString();
-                    book.c_book_author = dr["c_book_author"].ToString();
-                    book.c_book_price = Convert.ToDecimal(dr["c_book_price"]);
-                    BookList.Add(book);
-                }
-
-            }
-            catch (Exception)
-            {
-                throw; ;
-            }
-
-            finally
-            {
+                auth = false;
                 con.Close();
+                return auth;
             }
-            return BookList;
+
         }
     }
 }

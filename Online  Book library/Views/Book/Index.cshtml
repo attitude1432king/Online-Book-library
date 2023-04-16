@@ -1,0 +1,104 @@
+﻿
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/kendo.all.min.js"></script>
+
+<link href="~/Content/default-ocean-blue.css" rel="stylesheet" />
+<div id="grid"></div>
+
+<script>
+    $(document).ready(function () {
+        var dataSource = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: "/Book/GetAllBook/",
+                    dataType: "json"
+                },
+                create: {
+                    url: "/Book/Add/",
+                    dataType: "json"
+                },
+                update: {
+                    url: "/Book/Update/",
+                    dataType: "json"
+                },
+                destroy: {
+                    url: "/Book/Delete/",
+                    dataType: "json"
+                },
+            },
+            pageSize: 5,
+            schema: {
+                model: {
+                    id: "c_book_id",
+                    fields: {
+                        c_book_name: { type: "string", validation: { required: true } },
+                        c_book_author: { type: "string", validation: { required: true } },
+                        c_book_category: { type: "string", validation: { required: true } },
+                        c_book_price: { type: "number", validation: { required: true } },
+                        c_book_quantity: { type: "number", validation: { required: true } }
+                    }
+                }
+            }
+        });
+
+        $("#grid").kendoGrid({
+            dataSource: dataSource,
+            filterable: true,
+            sortable: true,
+            pageable: true,
+            toolbar: ["create","pdf", "search"],
+            columns: [
+                
+                {
+                    field: "c_book_name",
+                    title: "Book Name",
+                    
+                },
+                {
+                    field: "c_book_author",
+                    title: "Book Author"
+                },
+                {
+                    field: "c_book_category",
+                    title: "Book Category",
+                    editor:GetCategory
+                },
+                {
+                    field: "c_book_price",
+                    title: "Book Price"
+                },
+                {
+                    field: "c_book_quantity",
+                    title: "Quantity"
+                },
+                {
+                    command: ["edit"],
+                    title: "&nbsp;"
+                },
+                {
+                    command: ["destroy"],
+                    title: "&nbsp;"
+                }
+            ],
+            editable: "popup"
+        });
+    });
+
+    function GetCategory(container, options) {
+        $('<input required name="' + option.field + '" bind-name="catename"/>').
+            appendTo(container).kendoDropDownList({
+                optionLabel: "Select Category",
+                dataTextField: "@ViewBag.cate",
+                dataValueField: "@ViewBag.cate",
+                transport: {
+                    type: "json",
+                    read: {
+                        url:"/Book/GetBookCategory/"
+                    }
+                }
+            });
+            
+    }
+
+   
+</script>

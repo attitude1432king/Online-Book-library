@@ -164,5 +164,32 @@ namespace Online__Book_library.Bal
             }
             return book_check;
         }
+        
+        public List<CategoryModel> GetBookCategory()
+        {
+            List<CategoryModel> display=new List<CategoryModel>();
+            try
+            {
+                NpgsqlCommand cm = new NpgsqlCommand("Select * from book_category",con);
+                con.Open();
+                NpgsqlDataReader dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    var category = new CategoryModel();
+                    category.c_category_id = Convert.ToInt32(dr["c_category_id"]);
+                    category.c_category_name = dr["c_category_name"].ToString();
+                    display.Add(category);
+                }
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return display;
+        }
     }
 }

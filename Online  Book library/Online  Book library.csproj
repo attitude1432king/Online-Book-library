@@ -168,10 +168,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bal\AdminHelper.cs" />
     <Compile Include="Bal\BookHelper.cs" />
+    <Compile Include="Bal\CategoryHelper.cs" />
     <Compile Include="Bal\Helper.cs" />
     <Compile Include="Bal\StudentHelper.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
@@ -465,9 +467,12 @@
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Student\Register.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Book\" />
+    <Folder Include="Views\Category\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>

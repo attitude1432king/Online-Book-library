@@ -11,6 +11,10 @@ namespace Online__Book_library.Controllers
     public class StudentController : Controller
     {
         StudentHelper sh=new StudentHelper();
+        public ActionResult Index()
+        {
+            return View();
+        }
         public ActionResult Register()
         {
             return View();
@@ -21,5 +25,12 @@ namespace Online__Book_library.Controllers
         {
             return Json(sh.Register(data),JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult GetBook()
+        {
+            List<BookModel> list_book = sh.GetStudentBook();
+            return View();
+        }
+
     }
 }
